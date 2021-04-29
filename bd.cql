@@ -67,7 +67,7 @@ COPY temporal_carga(
   SaldoInicial_2,
   MontoTransferencia,
   FechaTransferencia
-) FROM 'ArchivoEntrada.csv' WITH HEADER = TRUE AND DELIMITER=';';
+) FROM './practica3-bases2/ArchivoEntrada.csv' WITH HEADER = TRUE AND DELIMITER=';';
 
 CREATE TABLE instituciones (
   nombre TEXT,
@@ -75,4 +75,37 @@ CREATE TABLE instituciones (
   PRIMARY KEY ((nombre), abreviacion)
 ) WITH CLUSTERING ORDER BY(abreviacion asc);
 
-COPY instituciones FROM 'instituciones1.csv' WITH HEADER = TRUE AND DELIMITER=',';
+COPY instituciones FROM './practica3-bases2/Instituciones1.csv' WITH HEADER = TRUE AND DELIMITER=',';
+COPY instituciones FROM './practica3-bases2/Instituciones2.csv' WITH HEADER = TRUE AND DELIMITER=',';
+
+select * from instituciones;
+
+CREATE TABLE cuentas (
+  nombre TEXT,
+  apellido TEXT,
+  cui TEXT,
+  institucion TEXT,
+  abreviacion TEXT,
+  tipo_cuenta TEXT,
+  saldo_inicial DECIMAL,
+  PRIMARY KEY ((cui, institucion, tipo_cuenta), nombre, apellido)
+) WITH CLUSTERING ORDER BY (nombre asc, apellido asc);
+
+COPY cuentas (
+  nombre,
+  apellido,
+  cui,
+  institucion,
+  abreviacion,
+  tipo_cuenta,
+  saldo_inicial
+) FROM './practica3-bases2/CuentaHabientes1.csv' WITH HEADER = TRUE AND DELIMITER=',';
+COPY cuentas (
+  nombre,
+  apellido,
+  cui,
+  institucion,
+  abreviacion,
+  tipo_cuenta,
+  saldo_inicial
+) FROM './practica3-bases2/CuentaHabientes2.csv' WITH HEADER = TRUE AND DELIMITER=',';
