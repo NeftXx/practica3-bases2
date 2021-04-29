@@ -109,3 +109,34 @@ COPY cuentas (
   tipo_cuenta,
   saldo_inicial
 ) FROM './practica3-bases2/CuentaHabientes2.csv' WITH HEADER = TRUE AND DELIMITER=',';
+
+CREATE TABLE transacciones (
+  nombre TEXT,
+  apellido TEXT,
+  cui TEXT,
+  institucion TEXT,
+  abreviacion TEXT,
+  tipo_cuenta TEXT,
+  monto_transferido DECIMAL,
+  fecha_transferencia TIMESTAMP,
+  tipo_accion TEXT,
+  PRIMARY KEY ((
+    cui,
+    institucion,
+    tipo_cuenta,
+    fecha_transferencia,
+    tipo_accion
+  ), nombre, apellido)
+) WITH CLUSTERING ORDER BY (nombre asc, apellido asc);
+
+COPY transacciones (
+  nombre,
+  apellido,
+  cui,
+  institucion,
+  abreviacion,
+  tipo_cuenta,
+  monto_transferido,
+  fecha_transferencia,
+  tipo_accion
+) FROM './practica3-bases2/Debitos.csv' WITH HEADER = TRUE AND DELIMITER=',';
